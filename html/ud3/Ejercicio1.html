@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 01</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <style type="text/css">
+        .contPpal {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 285px;
+            position: relative;
+
+        }
+
+        #info {
+            padding-top: 37px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 45px;
+        }
+
+        span {
+            font-size: 20px;
+            text-align: center;
+            line-height: 35px;
+            margin-top: 0px;
+            padding-bottom: 14px;
+        }
+
+        textarea {
+            text-align: left;
+            box-shadow: 0px 4px #a5a5a5;
+            border: none;
+            border-radius: 8px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 18px;
+            resize: none;
+        }
+
+        textarea:focus {
+            text-align: left;
+            outline: none;
+            border: 2px solid purple;
+        }
+    </style>
+    <script type="text/javascript">
+        function limita(elEvento, maximoCaracteres) {
+            var elemento = document.getElementById("texto");
+
+            var evento = elEvento || window.event;
+            var codigoCaracter = evento.charCode || evento.keyCode;
+
+            if (codigoCaracter == 8 || codigoCaracter == 37 || codigoCaracter == 39 || codigoCaracter == 46) {
+                return true;
+            } else if (elemento.value.length < maximoCaracteres) {
+
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+
+        function actualizaInfo(maximoCaracteres) {
+            var elemento = document.getElementById("texto");
+            var info = document.getElementById("info");
+
+            info.innerHTML = "<span> Máximo " + maximoCaracteres + " caracteres: " + (maximoCaracteres - elemento.value.length) + "/" + maximoCaracteres + "</span>";
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <h1>Limite de caracteres y cuenta atrás</h1>
+
+
+    <div id="info">
+
+    </div>
+    <div class="contPpal">
+        <textarea id="texto" onkeypress="return limita(event, 20);" onkeyup="actualizaInfo(20)" rows="6" cols="30"></textarea>
+    </div>
+</body>
+
+</html>

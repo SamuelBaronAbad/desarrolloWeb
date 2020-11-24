@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>EV5_UD2</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <style type="text/css">
+        .contPpal {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 285px;
+        }
+
+        h2 {
+            color: whitesmoke;
+            margin-bottom: 5px;
+            font-size: 40px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            margin-top: 0px;
+        }
+        span {
+            font-size: 18px;
+            font-style: italic;
+        }
+
+        p {
+            color: rgb(233, 233, 233);
+            margin-bottom: 0px;
+            font-size: 18px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            padding-top: 0px;
+            line-height: 15px;
+        }
+
+        #info {
+
+            width: 34%;
+            height: 165px;
+            padding: 9px;
+            border-radius: 14px;
+            background-color: rgb(132 75 165);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #info h1 {
+            margin: 0;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        window.onload = function () {
+            document.onkeypress = informacion;
+            document.onmousemove = informacion;
+        }
+
+        function informacion(elEvento) {
+            var evento = elEvento;
+            switch (evento.type) {
+                case "keypress":
+                    var caracter = evento.charCode;
+                    var letra = String.fromCharCode(caracter);
+                    var codigo = letra.charCodeAt(0);
+                    muestraInformacion(["TECLADO", "CARACTER [" + letra + "]", "CODIGO [" + codigo + "]"]);
+                    break;
+                case "mousemove":
+                    var coordenadasXnav, coordenadasYnav, coordenadasXpag, coordenadasYpag;
+                    coordenadasXnav = evento.pageX;
+                    coordenadasYnav = evento.pageY;
+                    coordenadasXpag = evento.clientX;
+                    coordenadasYpag = evento.clientY;
+                    muestraInformacion(["RATON", "NAVEGADOR [" + coordenadasXnav + "," + coordenadasYnav + "]", "PAGINA [" + coordenadasXpag + "," + coordenadasYpag + "]"]);
+                    break;
+            }
+        }
+
+        function muestraInformacion(mensaje) {
+
+            document.getElementById("info").innerHTML = '<h2>' + mensaje[0] + '</h2>';
+            for (var i = 1; i < mensaje.length; i++) {
+                document.getElementById("info").innerHTML += '<p>' + mensaje[i] + '</p>';
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>Posición de Ratón y carácter de Teclado <br><span> (Click en el recuadro rosa para activar el reconocimiento de carácter de Teclado)</span></h1>
+
+    <div class="contPpal">
+        <div id="info"></div>
+
+    </div>
+</body>
+
+</html>

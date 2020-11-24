@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<head>
+    <title>Ejercicio 04</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <style>
+        #info {
+            margin-top: 35px;
+            font-size: 27px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            text-align: center;
+            line-height: 33px;
+        }
+
+        #contador {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type=text] {
+            width: 14%;
+            text-align: center;
+            height: 60px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 40px;
+        }
+
+        input[type=text]:focus {
+            outline: none;
+            border: 2px solid purple;
+        }
+
+        .boton {
+            padding: 11px;
+            margin-top: 20px;
+            font-size: 30px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        label {
+            font-size: 32px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            color: rgb(97, 97, 97);
+
+        }
+
+        .input {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .label {
+            width: 45%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+    </style>
+
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).keypress(function (e) {
+            if (e.which == 13 && !e.shiftKey)
+                $('.boton').click();
+
+
+        });
+        function calcula() {
+            var diaInput = parseInt(document.getElementById("dia").value);
+            var mesInput = parseInt(document.getElementById("mes").value) - 1;
+            var añoInput = parseInt(document.getElementById("año").value);
+
+            var hoy = new Date();
+            var fecha = new Date(añoInput, mesInput, diaInput);
+            var error = false;
+
+
+            var bisiesto = ((!(añoInput % 4) && añoInput % 100) || !(añoInput % 400));
+            if ((bisiesto == false && diaInput >= 29) || (bisiesto == true && diaInput > 29)) {
+                alert("Fecha no Válida");
+                error = true;
+                document.getElementById("info").innerHTML = ""
+            }
+            var diasMeses = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            if (mesInput == 1 || mesInput > 2) {
+                if (diaInput > diasMeses[mesInput - 1] || diaInput < 0 || diasMeses[mesInput - 1] == undefined) {
+                    alert("Fecha no Válida");
+                    error = true;
+                    document.getElementById("info").innerHTML = ""
+                }
+            }
+
+            if (hoy > fecha) {
+
+                alert("Esta fecha ya ha pasado");
+                error = true;
+                document.getElementById("info").innerHTML = ""
+            }
+
+
+            var hoy = new Date();
+            var dias = 0;
+            var horas = 0;
+            var minutos = 0;
+            var segundos = 0;
+            console.log(error)
+            if (fecha > hoy && error == false) {
+                console.log(fecha)
+                time = (fecha - hoy + 1000) / 1000,
+                    segundos = ('0' + Math.floor(time % 60)).slice(-2),
+                    minutos = ('0' + Math.floor(time / 60 % 60)).slice(-2),
+                    horas = ('0' + Math.floor(time / 3600 % 24)).slice(-2),
+                    dias = Math.floor(time / (3600 * 24));
+
+
+                document.getElementById("info").innerHTML = '<font size="small">El día elegido llegará en...</font><br> <font color="red">' + dias + ' Dias </font><br><font color="blue">' + horas + ' Horas </font><br><font color="green"> ' + minutos + ' Minutos</font><br><font color="whitesmoke"> ' + segundos + ' Segundos </font>';
+                if (dias > 0 || horas > 0 || minutos > 0 || segundos > 0) {
+                    setTimeout(calcula, 1000)
+                }
+
+            }
+
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Cuenta atrás, elige una fecha</h1>
+    <div id='contador'>
+        <div class="label">
+            <label for="dia">Dia</label>
+            <label for="dia">Mes</label>
+            <label for="dia">Año</label>
+        </div>
+        <div class="input">
+            <input type="text" name="dia" id="dia" min="1"></input>
+
+            <input type="text" name="mes" id="mes" min="1"></input>
+
+            <input type="text" name="año" id="año" min="1"></input>
+        </div>
+        <button type="submit" class="boton" onclick="calcula()">Generar</button>
+    </div>
+    <div id="info"></div>
+</body>
+
+</html>

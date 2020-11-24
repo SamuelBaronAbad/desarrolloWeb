@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 05</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <style>
+        p {
+            padding: 0px;
+            margin-bottom: 12px;
+        }
+
+        .contPpal {
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type=text] {
+            width: 10%;
+            text-align: center;
+            height: 60px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 52px;
+            margin-left: 23px;
+            margin-top: 12px;
+        }
+
+        input[type=text]:focus {
+            outline: none;
+            border: 2px solid purple;
+        }
+
+        ::placeholder {
+            font-size: 30px;
+            position: relative;
+            bottom: 7px;
+        }
+
+        .elem1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+
+        .inputTabla {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .inputTexto {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        table {
+            text-align: center;
+            width: 320px;
+            height: 90px;
+            font-size: 17px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            border: none;
+            margin-top: 12px;
+        }
+
+        #boton {
+            padding: 11px;
+            font-size: 30px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+    </style>
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).keypress(function (e) {
+            if (e.which == 13 && !e.shiftKey) {//Enter key pressed
+                $('.boton').click();//Trigger search button click event
+            }
+        });
+        function ejercicio5() {
+            var tablaColor = document.getElementById("input1").value.toUpperCase();
+            var textoColor = document.getElementById("input2").value.toUpperCase();
+
+            //  var tablaColor = prompt("Elige un color para el fondo de la tabla: R, A, Y o V").toUpperCase();
+            // var textoColor = prompt("Elige un color para el texto: R, A, Y o V").toUpperCase();
+
+            switch (tablaColor) {
+                case "R":
+                    tablaColor = "lightcoral";
+                    break;
+                case "A":
+                    tablaColor = "lightblue";
+                    break;
+                case "Y":
+                    tablaColor = "lightyellow";
+                    break;
+                case "V":
+                    tablaColor = "lightgreen";
+                    break;
+                default:
+                    tablaColor = "lightgrey";
+            }
+
+            switch (textoColor) {
+                case "R":
+                    textoColor = 'red';
+                    break;
+                case "A":
+                    textoColor = 'blue';
+                    break;
+                case "Y":
+                    textoColor = 'yellow';
+                    break;
+                case "V":
+                    textoColor = 'green';
+                    break;
+                default:
+                    textoColor = 'black';
+            }
+            document.getElementById("tabla").innerHTML = "<TABLE><tbody bgcolor=" + tablaColor + ">" +
+                "<TH> <font color=" + textoColor + ">COLORES </font></TH>" +
+                "<TR><TD><font color=" + textoColor + ">" +
+                "Es es el color del texto </font></TD></TR></tbody></TABLE>"
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <h1>Personalizar colores de Tabla</h1>
+    <div class="contPpal">
+        <div class="elem1">
+            <div class="inputTabla">
+                <p>Elige un color para el fondo de la tabla:<br>
+                    <b><span style="color: lightcoral">R (rojo), </span>
+                        <span style="color: lightblue"> A (azul),</span>
+                        <span style="color: lightyellow"> Y(amarillo)</span> o
+                        <span style="color: lightgreen"> V(verde)</span></b></p>
+                <input type="text" id="input1" placeholder='Tabla'></input>
+            </div>
+            <div class="inputTexto">
+                <p>Elige un color para el texto:<br>
+                    <b><span style="color: red">R (rojo), </span>
+                        <span style="color: blue"> A (azul),</span>
+                        <span style="color: yellow"> Y(amarillo)</span> o
+                        <span style="color: green"> V(verde)</span></b></p>
+                <input type="text" id="input2" placeholder='Texto'></input>
+            </div>
+            <button id="boton" class="boton" onclick="ejercicio5()">Aceptar</button>
+        </div>
+        <div id="tabla"></div>
+    </div>
+</body>
+
+</html>

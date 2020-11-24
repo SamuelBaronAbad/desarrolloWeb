@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 05</title>
+    <link rel="stylesheet" href="../../css/jquery-ui.min.css">
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <style>
+        a{
+            text-decoration: none;
+        }
+        p{
+            padding: 0px 48px 0px 48px;
+        }
+    </style>
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script src="../../js/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#tooltip1").tooltip({
+                show: {
+                    effect: "slideDown",
+                    delay: 250
+                }
+            });
+
+        })
+
+    </script>
+</head>
+
+<body>
+    <h1>Tooltip con librería externa</h1>
+    <p>
+        Esto es un texto de prueba en el cual veras un Tooltip personalizado cuando pases
+        <a href="#" id="tooltip1" title="Este es mi tootltip">el raton por encima</a>. Lo hemos conseguido a través de jQuery-ui.
+    </p>
+
+
+</body>
+
+</html>

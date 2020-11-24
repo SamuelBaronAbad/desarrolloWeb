@@ -1,0 +1,390 @@
+﻿<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<head>
+    <title>Ejercicio 01</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <link rel="stylesheet" href="../../css/ScrollBar.css">
+    <style>
+        span {
+            font-weight: 2px;
+            font-size: 13px;
+            position: relative;
+            text-decoration: underline;
+        }
+
+
+        .contenedor {
+            margin-left: 10px;
+            background: #e6e6e6;
+            height: 290px;
+            padding: 23px 34px 23px 34px;
+            border-radius: 5px;
+            box-shadow: 0px 8px 16px gray;
+            max-width: 50%;
+
+        }
+
+
+        input[type=text] {
+            width: 194px;
+            margin: 11px;
+            padding: 10px;
+            border: 1px solid rgb(168, 168, 168);
+            border-radius: 5px;
+            background: rgb(253, 253, 253);
+        }
+
+
+        input:focus {
+            outline: none;
+            border: 2px solid purple;
+        }
+
+        label {
+            font-size: 16px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            width: 34%;
+            margin: 22px;
+            color: rgb(97, 97, 97);
+        }
+
+
+
+        .row {
+            content: "";
+            display: flex;
+
+        }
+
+
+        .centrado {
+            display: flex;
+            justify-content: center;
+        }
+
+        .facturaTotal {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .total {
+            border-radius: 9px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 15px;
+            line-height: 20px;
+            height: 70px;
+            margin-top: 7px;
+            background: whitesmoke;
+            text-align: left;
+            box-shadow: 0px 8px 16px gray;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #mostrarTotal,
+        #iva,
+        #sinIva {
+            width: 45%;
+            margin-right: 13px;
+            text-align: right;
+            text-decoration: none;
+        }
+
+        .fila1>span,
+        .fila2>span {
+            font-size: 11px;
+            color: rgb(102, 102, 102);
+            text-decoration: none;
+        }
+
+        .fila1,
+        .fila2 {
+            display: flex;
+            margin-top: 3px;
+            line-height: 18px;
+            font-size: 11px;
+            color: rgb(102, 102, 102);
+            text-decoration: none;
+            margin-left: 13px;
+            text-align: left;
+        }
+
+        .fila3 {
+            display: flex;
+            margin-top: 5px;
+            font-size: 11px;
+            color: rgb(102, 102, 102);
+            text-decoration: none;
+            margin-left: 13px;
+            text-align: left;
+        }
+
+        #total,
+        .iva,
+        .sinIva {
+            width: 80%;
+            text-decoration: none;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+
+        }
+
+        /*Scrollbar FACTURA*/
+        .factura::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        .factura::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background: linear-gradient(#2C3473 14%, #F9D4FF 64%);
+
+
+        }
+
+        .factura::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(#7952B5 14%, #EFE7F0 64%);
+        }
+
+        .factura::-webkit-scrollbar-track {
+            box-shadow: inset 7px 10px 12px #f0f0f0;
+            background: #ffffff;
+
+        }
+
+
+        .factura {
+            border-radius: 9px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 15px;
+            line-height: 30px;
+            height: 260px;
+            background: whitesmoke;
+            text-align: center;
+            box-shadow: 0px 8px 16px gray;
+            overflow-y: scroll;
+
+        }
+
+        .factura>ul {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .factura>ul>li {
+            list-style-type: none;
+            display: flex;
+            justify-content: space-around;
+            margin-top: 7px;
+        }
+
+        .factura>ul>li>span {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            color: purple;
+            text-decoration: none;
+            line-height: 18px;
+
+        }
+
+
+        .contFactura {
+            width: 100%;
+            display: flex;
+        }
+
+        .contFactura>span:nth-child(1),
+        .factura>ul>li>span:nth-child(1) {
+            margin-left: 13px;
+            width: 62%;
+            text-align: left;
+            overflow: hidden;
+            word-break: break-all;
+
+        }
+
+        .contFactura>span:nth-child(2),
+        .factura>ul>li>span:nth-child(2) {
+            width: 20%;
+            text-align: right;
+            overflow: hidden;
+            word-break: break-all;
+        }
+
+        .contFactura>span:nth-child(3),
+        .factura>ul>li>span:nth-child(3) {
+            width: 20%;
+            margin-right: 13px;
+            text-align: right;
+            overflow: hidden;
+            word-break: break-all;
+        }
+
+
+        .factura>ul>li>span:nth-child(3):after {
+            content: " €";
+        }
+    </style>
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).keypress(function (e) {
+            if (e.which == 13 && !e.shiftKey)
+                $('.boton').click();
+
+
+        });
+
+        $(document).ready(function () {
+            var factura = {
+                empresa: {
+                    nombre: "Nombre de Empresa",
+                    direccion: "Direccion Empresa",
+                    telefono: "Tlf Empresa",
+                    nif: "NIF"
+                },
+                cliente: {
+                    nombre: "Nombre de Cliente",
+                    direccion: "Direccion Cliente",
+                    telefono: "Tlf Cliente",
+                    dni: "DNI"
+                },
+                elementos: [],
+                infoFactura: {
+                    importe: 0,
+                    iva: 0.21,
+                    total: 0,
+                    pago: "Forma de pago"
+                }
+            };
+
+            $(document).keypress(function (e) {
+                if (e.which == 13 && !e.shiftKey) {//Enter key pressed
+                    $('.boton').click();//Trigger search button click event
+                }
+            });
+
+
+            $(".boton").click(function () {
+                var desc = $("#descripcion").val();
+                var cant = parseInt($("#cantidad").val())
+                var prec = parseInt($("#precio").val());
+
+                //Añadimos un producto a la factura
+                factura.elementos.push({ descripcion: desc, precio: prec, cantidad: cant });
+
+                calculoTotal(factura);
+
+                //Calculamos el total de la factura
+                function calculoTotal(factura) {
+
+                    if (cant == 0
+                        || prec == 0
+                        || desc.length == 0) {
+                        alert("Uno de los campos está vacío")
+                    }
+
+                    else if (!(/^([0-9])*$/.test(cant))
+                        || !(/^([0-9])*$/.test(prec))) {
+                        alert("Los campos Precio y Cantidad deben ser números");
+                    } else {
+                        add();
+                        factura.infoFactura.importe += factura.elementos[factura.elementos.length - 1].precio * factura.elementos[factura.elementos.length - 1].cantidad;
+                        var importeIva = factura.infoFactura.importe * factura.infoFactura.iva
+                        factura.infoFactura.total = factura.infoFactura.importe + (importeIva);
+
+                        $("#sinIva").html(factura.infoFactura.importe + " €");
+                        $("#iva").html(importeIva.toFixed(2) + " €");
+                        $("#mostrarTotal").html((factura.infoFactura.total).toFixed(2) + " €");
+                    }
+                }
+                //Metodos para añadir un producto a la lista
+                function add() {
+                    var lista = document.getElementById("lista").getElementsByTagName("li");
+                    contador = lista.length + 1;
+                    var newNode = document.createElement("li")
+
+                    var spanDesc = newNode.appendChild(document.createElement("span"));
+                    var descText = document.createTextNode(factura.elementos[factura.elementos.length - 1].descripcion);
+                    spanDesc.appendChild(descText);
+
+                    var spanCant = newNode.appendChild(document.createElement("span"));
+                    var cantText = document.createTextNode(factura.elementos[factura.elementos.length - 1].cantidad);
+                    spanCant.appendChild(cantText);
+
+                    var spanPrec = newNode.appendChild(document.createElement("span"));
+                    var precText = document.createTextNode(factura.elementos[factura.elementos.length - 1].precio);
+
+                    spanPrec.appendChild(precText);
+                    document.getElementById("lista").appendChild(newNode);
+
+                }
+
+            })
+        })
+
+
+
+
+    </script>
+</head>
+
+<body>
+    <h1>Factura</h1>
+    <div class="centrado">
+
+        <div class="contenedor">
+            <div class="row">
+                <label for="Descripción">Descripción</label>
+                <input id="descripcion" type="text" name="Descripción" />
+                <span id="Descripción"></span>
+            </div>
+            <div class="row">
+                <label for="Precio">Precio </label>
+                <input id="precio" type="text" name="Precio" />
+                <span id="Precio"></span>
+            </div>
+            <div class="row">
+                <label for="Cantidad">Cantidad </label>
+                <input id="cantidad" type="text" name="Cantidad" />
+                <span id="Cantidad"></span>
+            </div>
+
+            <div class="centrado">
+                <input id="boton" class="boton" type="submit" name="ENVIAR" value="Agregar" />
+            </div>
+        </div>
+        <div class="facturaTotal">
+            <div class="factura">
+                FACTURA
+                <div class="contFactura">
+                    <span>Descripción</span>
+                    <span>Cant.</span>
+                    <span>Precio</span>
+                </div>
+                <ul id="lista"></ul>
+
+            </div>
+            <div class="total">
+                <div class="fila1" id="fila1">
+                    <span class="sinIva">Total sin IVA</span>
+                    <span id="sinIva"></span>
+                </div>
+                <div class="fila2" id="fila2">
+                    <span class="iva">21% IVA</span>
+                    <span id="iva"></span>
+                </div>
+                <div class="fila3" id="fila3">
+                    <span id="total">TOTAL</span>
+                    <span id="mostrarTotal"></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

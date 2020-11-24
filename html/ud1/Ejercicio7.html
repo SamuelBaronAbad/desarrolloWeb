@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 07</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <style>
+        .elem1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        #btn {
+            border-width: 0px;
+            border-radius: 410px;
+            height: 250px;
+            width: 250px;
+            font-size: 50px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            outline: none;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 1) 5%, rgba(133, 56, 179, 0) 75%);
+            background-color: rgb(173, 82, 173);
+            transition: 1s ease-in-out;
+            box-shadow: 0px 0px 15px 3px white;
+            cursor: pointer;
+        }
+
+        #btn:hover {
+            background-color: rgb(128, 21, 127);
+            box-shadow: 0px 0px 15px 3px rgb(206, 140, 206);
+
+        }
+
+        #acierto {
+            opacity: 0%;
+            font-size: 30px;
+            margin-bottom: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            transition: opacity 2s ease-in;
+        }
+
+        #spanBtn {
+            position: relative;
+            bottom: 5px;
+            transition : opacity 1s ease-in;
+        }
+       
+           
+
+#spanBtn>img {
+    opacity: 75%;
+    position: relative;
+    margin-top: 24px;
+        }
+    </style>
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script>
+
+        function ejercicio7() {
+            document.getElementById("spanBtn").style.bottom ="none"
+            var oculto = Math.floor(Math.random() * 10 + 1);
+            var flag = false;
+            var contador = 5;
+
+            var fallos = document.getElementById("fallos")
+            while (flag == false) {
+
+                var valor = prompt("Introduce un numero");
+                var num = parseInt(valor);
+
+
+                if (valor == null) {
+                    alert("Vuelva pronto a intentarlo!!");
+                    flag = true;
+                } else if (/\D/.test(num)) {
+                    alert("Solo se permiten numeros");
+                    flag = false;
+                }
+                else if (oculto > num) {
+
+                    contador--;
+                    if (contador == 0) {
+                        alert("Se han acabado los intentos, has perdido");
+                        flag = true;
+                    } else {
+                        alert("El numero oculto es mayor al introducido, quedan " + contador + " intentos");
+                        flag = false;
+                    }
+                } else if (oculto < num) {
+                    contador--;
+                    if (contador == 0) {
+                        alert("Se han acabado los intentos, has perdido");
+                        flag = true;
+                    } else {
+                        alert("El numero oculto es menor al introducido, quedan " + contador + " intentos");
+                        flag = false;
+                    }
+                }
+                else {
+                    alert("HAS ACERTADO!!");
+                    flag = true;
+                }
+
+            }
+            document.getElementById("spanBtn").style.opacity = "0%";
+            document.getElementById("acierto").style.opacity = "100%"
+
+
+            setTimeout(function () {
+                document.getElementById("spanBtn").innerHTML = oculto;
+
+               // document.getElementById("spanBtn").style.transition = "opacity 2s ease-in";
+                document.getElementById("spanBtn").style.opacity = "100%"
+                document.getElementById("spanBtn").style.fontSize = "140px";
+            }, 1500)
+
+
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <h1>Adivinar el numero oculto</h1>
+    <div class="elem1">
+        <div id="acierto">El numero oculto es... </div>
+        <button id="btn" onclick="ejercicio7()"><span id="spanBtn"><img src="../../img/encendido.png" width="140px" height="140px"/></span></button>
+
+    </div>
+
+
+</body>
+
+</html>

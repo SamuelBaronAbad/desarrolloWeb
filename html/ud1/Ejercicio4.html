@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 04</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <style>
+        h1 {
+            margin-bottom: 4px;
+        }
+
+        p {
+            padding-top: 0px;
+            margin: 0px;
+            margin-bottom: 3px;
+        }
+
+        .contPpal {
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #contenedor {
+
+            justify-content: center;
+            display: flex;
+        }
+
+        #tabla {
+            text-align: center;
+            width: 320px;
+            height: 289px;
+            font-size: 17px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        tbody {
+            background-color: #eab3ea;
+        }
+
+
+        input[type=text] {
+            width: 10%;
+            text-align: center;
+            height: 60px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 52px;
+            margin-top: 17px;
+            padding-bottom: 5px;
+
+        }
+
+        input[type=text]:focus {
+            outline: none;
+            border: 2px solid purple;
+        }
+
+        ::placeholder {
+            font-size: 30px;
+            position: relative;
+            bottom: 7px;
+        }
+
+        .elem1 {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .boton {
+            height: 64px;
+            margin-left: 11px;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgb(233, 245, 255);
+        }
+    </style>
+
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).keypress(function (e) {
+            if (e.which == 13 && !e.shiftKey) {//Enter key pressed
+                $('.boton').click();//Trigger search button click event
+            }
+        });
+        function ejercicio4() {
+            var num = parseInt(document.getElementById("input").value);
+
+
+            var flag = false;
+            while (flag == false) {
+                if (num < 0) {
+                    alert("El numero introducido es negativo");
+                    num = parseInt(prompt("Introduzca un numero"));
+                    flag = false;
+                } else {
+                    flag = true;
+                }
+            }
+
+            var rows = '';
+            for (i = 0; i <= 10; i++) {
+                if (i == 0) {
+                    rows += "<table id='tabla'><TR style='background: whitesmoke'><td style='border-bottom: 1px solid black; height: 31px;' colspan='2'>TABLA DE MULTIPLICAR DEL " + num + "</td></TR>";
+                } else if (i == 10) {
+                    rows += "<TR><TD class='row" + i + "' style='border: none'>" + num + "x" + i + " </TD> " + "<TD class='row" + i + "' style='border: none'>" + (num * i) + "</TD></TR></table>"
+                } else {
+                    rows += "<TR><TD class='row" + i + "'>" + num + "x" + i + " </TD> " + "<TD class='row" + i + "'>" + (num * i) + "</TD></TR>";
+                }
+                document.getElementById('contenedor').innerHTML = rows;
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <h1>Tabla de multiplicar</h1>
+    <div class="contPpal">
+        <div class="elem1">
+            <input type="text" id="input" placeholder='Num'></input>
+            <button class="boton" onclick="ejercicio4()">Aceptar</button>
+        </div>
+        <div id="contenedor"></div>
+    </div>
+</body>
+
+</html>

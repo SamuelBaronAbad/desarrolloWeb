@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 06</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <style>
+        .elem1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        #tabla1, #tabla2 {
+            margin-top: 26px;
+        }
+        table {
+            text-align: center;
+            width: 320px;
+            height: 99px;
+    font-size: 23px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+
+        th {
+            background-color: #eab3ea;
+        }
+        tr {
+            background-color: rgb(233, 245, 255);
+        }
+        #boton {
+            
+            padding: 11px;
+            font-size: 30px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        
+    </style>
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).keypress(function (e) {
+                if (e.which == 13 && !e.shiftKey) 
+                    $('.boton').click();
+
+                
+            });
+        function ejercicio6() {
+
+            var array = new Array();
+            var num = 0;
+            for (i = 0; i < 10; i++) {
+                num = parseInt(Math.random() * 10);
+                array[i] = num;
+            }
+            var row1 = "";
+            for (i = 0; i < array.length; i++) {
+                if (i==array.length-1){
+                    row1 += array[i]; 
+                }else{
+                row1 += array[i] + ",";
+                }
+            }
+
+            var rows2 = array.reverse();
+
+            document.getElementById("tabla1").innerHTML = "<table><tbody><th>Orden generado</th><tr><td>" + row1 + "</td></tr></tbody></table>";
+            document.getElementById("tabla2").innerHTML = "<table><tbody><th>Orden al revés </th><tr><td>" + rows2 + "</td></tr></tbody></table>";
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <h1>Lista de numeros al reverso</h1>
+    <div class="elem1">
+        <button id="boton" class="boton" onclick="ejercicio6()">Generar</button>
+        <div id="tabla1"></div>
+        <div id="tabla2"></div>
+    </div>
+</body>
+
+</html>

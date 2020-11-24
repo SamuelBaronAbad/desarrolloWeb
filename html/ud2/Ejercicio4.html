@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 04</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <link rel="stylesheet" href="../../css/ScrollBar.css">
+    <style type="text/css">
+        .contPpal {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 25px;
+         
+        }
+
+        p {
+            margin-left: 8px;
+            margin-right: 8px;
+            line-height: 30px;
+            padding-top: 0px;
+            margin-top: -5px;
+        }
+
+        .oculto {
+            display: none;
+        }
+
+        .visible {
+            display: inline-block;
+        }
+
+        a {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 22px;
+            text-decoration-line: none;
+            margin-bottom: 30px;
+        }
+        a:hover{
+            color:whitesmoke;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var enlaces = document.getElementsByTagName("a");
+            for (i in enlaces) {
+                enlaces[i].onclick = muestraOculta;
+            }
+        }
+
+        function muestraOculta() {
+            //obtenemos el id del enlace que llega
+            var idEnlace = this.id;
+            ;
+            //dividimos el String por el caracter elegido: "_"
+            var trozos = idEnlace.split("_");
+
+            //crea un array con String dividio ["enlace","1"]
+            var num = trozos[1];
+
+            var node = document.getElementById("contenidos_" + num);
+            //console.log(node.getAttribute("class"));
+            if (node.getAttribute("class") == null || node.getAttribute("class") == "visible") {
+
+                node.setAttribute("class", "oculto");
+                this.innerHTML = "Mostrar Contenido"
+            } else {
+                node.setAttribute("class", "visible");
+                this.innerHTML = "Ocultar Contenido"
+            }
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>Mostrar/Ocultar contenidos</h1>
+    <div class="contPpal">
+        <p id="contenidos_1">
+
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed mattis enim vitae
+            orci. Phasellus libero. Maecenas nisl arcu, consequat congue, commodo nec, commodo
+            ultricies, turpis. Quisque sapien nunc, posuere vitae, rutrum et, luctus at, pede.
+            Pellentesque massa ante, ornare id, aliquam vitae, ultrices porttitor, pede. Nullam
+            sit amet nisl elementum elit convallis malesuada. Phasellus magna sem, semper quis,
+            faucibus ut, rhoncus non, mi. Duis pellentesque, felis eu adipiscing ullamcorper,
+            odio urna consequat arcu, at posuere ante quam non dolor. Lorem ipsum dolor sit
+            amet, consectetuer adipiscing elit. Duis scelerisque.
+
+        </p>
+        <a id="enlace_1" href="#">Ocultar contenidos</a>
+        <br />
+        <p id="contenidos_2">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed mattis enim vitae
+            orci. Phasellus libero. Maecenas nisl arcu, consequat congue, commodo nec, commodo
+            ultricies, turpis. Quisque sapien nunc, posuere vitae, rutrum et, luctus at, pede.
+            Pellentesque massa ante, ornare id, aliquam vitae, ultrices porttitor, pede. Nullam
+            sit amet nisl elementum elit convallis malesuada. Phasellus magna sem, semper quis,
+            faucibus ut, rhoncus non, mi. Duis pellentesque, felis eu adipiscing ullamcorper,
+            odio urna consequat arcu, at posuere ante quam non dolor. Lorem ipsum dolor sit
+            amet, consectetuer adipiscing elit. Duis scelerisque.
+
+        </p>
+        <a id="enlace_2" href="#">Ocultar contenidos</a>
+        <br />
+        <p id="contenidos_3">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed mattis enim vitae
+            orci. Phasellus libero. Maecenas nisl arcu, consequat congue, commodo nec, commodo
+            ultricies, turpis. Quisque sapien nunc, posuere vitae, rutrum et, luctus at, pede.
+            Pellentesque massa ante, ornare id, aliquam vitae, ultrices porttitor, pede. Nullam
+            sit amet nisl elementum elit convallis malesuada. Phasellus magna sem, semper quis,
+            faucibus ut, rhoncus non, mi. Duis pellentesque, felis eu adipiscing ullamcorper,
+            odio urna consequat arcu, at posuere ante quam non dolor. Lorem ipsum dolor sit
+            amet, consectetuer adipiscing elit. Duis scelerisque.
+
+        </p>
+        <a id="enlace_3" href="#">Ocultar contenidos</a>
+    </div>
+</body>
+
+</html>

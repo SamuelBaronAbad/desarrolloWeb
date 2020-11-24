@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 10</title>
+    <style>
+        h1 {
+            text-align: center;
+            margin: 2%;
+        }
+
+        p {
+            font-size: 20px;
+            text-align: center;
+            padding-top: 1%;
+        }
+
+        #imgDiv {
+            width: 95%;
+            height: 318px;
+            text-align: center;
+            padding-left: 2.4%;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+
+        #caja {
+            font-size: 16px;
+            height: 37px;
+            width: 30%;
+            border-radius: 3px;
+            background-color: rgb(255, 255, 255, 0.7);
+            border: 1px solid #d9d9d9;
+            position: relative;
+            padding: 8px;
+            appearance: none;
+        background-image: url(../../img/cruz.png),
+            linear-gradient(to bottom, #ffffff 0%, #f7f7f7 100%);
+        background-repeat: no-repeat, repeat;
+        background-position: right .7em top 50%, 0 0;
+        background-size: .65em auto, 100%;
+        }
+      
+
+        select:focus {
+            outline: none;
+        }
+
+      #selectDiv {
+          text-align: center;
+          padding-top: 3.7%;
+      }
+    </style>
+    <script>
+        function seleccionImagen() {
+            var imagenes = new Array("img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg");
+            var seleccion = document.getElementById("caja").selectedIndex;
+            document.Foto.src = "../../img/" + imagenes[document.getElementById("caja").options[seleccion].value];
+
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>Galeria de imagenes <br> <span style="font-size: 20px;">Imagen con selector</span></h1>
+    <div id="imgDiv">
+        <img src=" ../../img/img1.jpg" name="Foto" />
+        <br>
+    </div>
+    <div id="selectDiv">
+    <select id="caja" name="SELECT" onchange="javascript:seleccionImagen()">
+        <option seleceted="selected" value="0">Imagen 1</option><!-- VALUE= indice de array-->
+        <option value="1">Imagen 2</option>
+        <option value="2">Imagen 3</option>
+        <option value="3">Imagen 4</option>
+    </select>
+</div>
+
+
+</body>
+
+</html>

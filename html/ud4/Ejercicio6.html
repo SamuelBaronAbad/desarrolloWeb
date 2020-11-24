@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<head>
+    <title>Ejercicio 01</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <link rel="stylesheet" href="../../css/ScrollBar.css">
+    <style>
+     body {
+            font-size: 15px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        h2 {
+            margin-bottom: 0;
+            font-size: 1.2em;
+            margin-left: 5px;
+            font-style: none;
+            text-decoration: none;
+        }
+        div{
+            border-radius: 9px;
+        }
+        #recurso,
+        #enviar {
+            padding: .3em;
+            font-size: 1.2em;
+            margin-top: 5px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        #enviar {
+            width: 28%;
+            
+        }
+        #recurso {
+            background-color: none;
+            border: 0px;
+        }
+        #recurso:focus{
+            outline: none;
+            border: 2px solid purple;
+        }
+
+        #principal {
+            float: left;
+            width: 70%;
+        }
+
+        #secundario {
+            float: right;
+            width: 25%;
+        }
+
+        #contenidos,
+        #estados,
+        #cabeceras,
+        #codigo {
+            border: 2px solid #CCC;
+            background: #FAFAFA;
+            padding: 1em;
+            word-break: break-all;
+    white-space: break-spaces;
+    margin: 5px;
+        }
+
+        #contenidos {
+            min-height: 400px;
+            max-height: 600px;
+            font-size: 12px;
+        }
+
+        .scroll {
+            overflow-y: scroll;
+        }
+
+        #estados {
+            min-height: 200px;
+        }
+
+        #cabeceras {
+            min-height: 200px;
+        }
+
+        #codigo {
+            min-height: 100px;
+            font-size: 1.5em;
+        }
+
+        form {
+            margin-left: 15px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .url {
+            display: flex;
+            justify-content: center;
+        }
+
+        span {
+            margin-top: 12px;
+            margin-right: 4px;
+            font-size: 20px;
+        }
+    </style>
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).keypress(function (e) {
+            if (e.which == 13 && !e.shiftKey)
+                $('.boton').click();
+
+
+        });
+        String.prototype.transformaCaracteresEspeciales = function () {
+            return unescape(escape(this).
+                replace(/%0A/g, '<br/>').
+                replace(/%3C/g, '&lt;').
+                replace(/%3E/g, '&gt;'));
+        }
+        var estadosPosibles = ['No inicializado', 'Cargando', 'Cargado',
+            'Interactivo', 'Completado'];
+        var tiempoInicial = 0;
+
+        window.onload = function () {
+            // Cargar en el input text la URL de la página
+            var recurso = document.getElementById('recurso');
+            recurso.value = location.href;
+            // Cargar el recurso solicitado cuando se pulse el botón MOSTRAR CONTENIDOS
+
+            document.getElementById('enviar').onclick = cargaContenido;
+        }
+        function cargaContenido() {
+            // Borrar datos anteriores
+            document.getElementById('contenidos').innerHTML = "";
+            document.getElementById('estados').innerHTML = "";
+            // Instanciar objeto XMLHttpRequest
+            if (window.XMLHttpRequest) {
+                peticion = new XMLHttpRequest();
+            }
+            else {
+                peticion = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            // Preparar función de respuesta
+            peticion.onreadystatechange = muestraContenido;
+            // Realizar petición
+            tiempoInicial = new Date();
+            var recurso = document.getElementById('recurso').value;
+            peticion.open('GET', recurso + '?nocache=' + Math.random(), true);
+            peticion.send(null);
+        }
+
+        // Función de respuesta
+        function muestraContenido() {
+            var tiempoFinal = new Date();
+            var milisegundos = tiempoFinal - tiempoInicial;
+            var estados = document.getElementById('estados');
+
+            estados.innerHTML += "[" + milisegundos + " mseg.] " +
+                estadosPosibles[peticion.readyState] + "<br/>";
+            if (peticion.readyState == 4) {
+                if (peticion.status == 200) {
+                    var contenidos = document.getElementById('contenidos');
+                    contenidos.classList.add("scroll");
+                    contenidos.innerHTML =
+                        peticion.responseText.transformaCaracteresEspeciales();
+                }
+                muestraCabeceras();
+                muestraCodigoEstado();
+            }
+        }
+        function muestraCabeceras() {
+            var cabeceras = document.getElementById('cabeceras');
+            cabeceras.innerHTML =
+                peticion.getAllResponseHeaders().transformaCaracteresEspeciales();
+        }
+        function muestraCodigoEstado() {
+            var codigo = document.getElementById('codigo');
+            codigo.innerHTML = peticion.status + "<br/>" + estadosPosibles[peticion.status];
+        }
+    </script>
+</head>
+
+<body>
+    <form action="#">
+        <div class="url">
+            <span>URL:</span>
+            <input type="text" id="recurso" size=59 />
+        </div>
+        <input type="button" class="boton" id="enviar" value="Mostrar contenidos" />
+    </form>
+    <div id="principal">
+        <h2>
+            Contenidos del archivo:</h2>
+        <div id="contenidos">
+        </div>
+        <h2>
+            Cabeceras HTTP de la respuesta del servidor:</h2>
+        <div id="cabeceras">
+        </div>
+    </div>
+    <div id="secundario">
+        <h2>
+            Estados de la petición:</h2>
+        <div id="estados">
+        </div>
+        <h2>
+            Código de estado:</h2>
+        <div id="codigo">
+        </div>
+    </div>
+</body>
+
+</html>

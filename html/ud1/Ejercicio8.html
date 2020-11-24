@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 08</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <style>
+        .centrado {
+            opacity: 0%;
+            height: 0px;
+            width: auto;
+            display: flex;
+            justify-content: center;
+            transition: .4s ease-out;
+        }
+        .centrado:hover {
+            opacity: 100%;
+            transition: .4s ease-in;
+        }
+        
+        #imgDiv {
+            width: 95%;
+            height: 318px;
+            text-align: center;
+            padding-left: 2.4%;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        a {
+            display: inline-block;
+            position: relative;
+            padding: 8px;
+            /* border: 1px solid #7d7d7d; */
+            border-radius: 10px;
+            background-color: #f7f7f7;
+            color: purple;
+            text-decoration: none;
+            top: 10.7px;
+            width: 60px;
+            font-size: 16px;
+            box-shadow: 0px 4px 8px rgb(83, 83, 83);
+            transition: 0.3s ease-in-out
+        }
+        a:hover {
+            background-color:rgb(160, 86, 202, 0.9);
+            color: whitesmoke;
+            transition: 0.3s ease-in-out;
+        }
+
+        #btns {
+            background: rgb(245, 245, 245, 0.7);
+            border-radius: 10px;
+            width: 190px;
+            height: 56px;
+            position: relative;
+            text-align: center;
+            bottom: 64px;
+            box-shadow: 0px 0px 14px 4px rgb(83, 83, 83, 0.8);
+        }
+    </style>
+    <script>
+
+        var imagenes = new Array("img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg");
+        var imgActual = 0;
+        var numImg = imagenes.length - 1;
+
+        function siguiente() {
+            imgActual++;
+            if (imgActual > numImg) {
+
+                imgActual = 0;
+            }
+
+            document.Foto.src = "../../img/" + imagenes[imgActual];
+        }
+
+        function anterior() {
+            imgActual--;
+            if (imgActual < 0) {
+                imgActual = numImg;
+            }
+            document.Foto.src = "../../img/" + imagenes[imgActual];
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <h1> Galeria de imagenes <br> <span style="font-size: 20px;">Secuencia de imagenes</span></h1>
+    <div id="imgDiv">
+        <img src=" ../../img/img1.jpg" name="Foto" />
+        <br>
+    </div>
+    <div class="centrado">
+        <div id="btns">
+            <a href="javascript:anterior()">anterior</a> &nbsp; <a href="javascript:siguiente()">siguiente</a>
+        </div>
+    </div>
+</body>
+
+</html>

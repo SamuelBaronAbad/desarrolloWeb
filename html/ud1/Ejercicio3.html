@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 03</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <style>
+        .tabla {
+            display: flex;
+            justify-content: space-evenly;
+            padding-top: 15px;
+
+        }
+
+        .contSolucion {
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            align-items: center;
+        }
+
+        #solucion {
+            visibility: hidden;
+            position: relative;
+            margin: 0px;
+            padding: 0px;
+            min-width: 11%;
+            width: fit-content;
+            text-align: center;
+            height: 70px;
+            border: 1px solid purple;
+            background-color: white;
+
+        }
+
+        .num {
+            margin: 0px;
+            text-align: center;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 52px;
+            padding-top: 17px;
+        }
+
+        #infoSol {
+            margin: 0px;
+            padding: 0px;
+            padding-bottom: 42px;
+        }
+
+        span {
+            font-size: 32px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            padding-top: 10px;
+        }
+
+        input[type=text] {
+            width: 10%;
+            text-align: center;
+            height: 60px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 52px;
+        }
+
+        input[type=text]:focus {
+            outline: none;
+            border: 2px solid purple;
+        }
+
+        #btn {
+            display: flex;
+            justify-content: center;
+            padding-top: 25px;
+        }
+
+        #boton {
+            padding: 11px;
+            font-size: 30px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+    </style>
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script>
+
+        $(document).keypress(function (e) {
+            if (e.which == 13 && !e.shiftKey) {
+                $('.boton').click();
+            }
+        });
+        function ejercicio3() {
+            document.getElementById("solucion").style.visibility = "visible";
+            var num1 = num2 = num3 = 0;
+
+            num1 = parseInt(document.getElementById("i1").value);
+            num2 = parseInt(document.getElementById("i2").value);
+            num3 = parseInt(document.getElementById("i3").value);
+
+            document.getElementById("infoSol").innerHTML = "El numero mayor entre (" + num1 + "," + num2 + "," + num3 + ") es: "
+
+            if (num1 > num2) {
+                if (num1 > num3) {
+                    document.getElementById("solucion").innerHTML = "<p class='num'>" + num1 + "</p>";
+                } else {
+                    document.getElementById("solucion").innerHTML = "<p class='num'>" + num3 + "</p>";
+                }
+            } else if (num2 > num3) {
+                document.getElementById("solucion").innerHTML = "<p class='num'>" + num2 + "</p>";
+            } else {
+                document.getElementById("solucion").innerHTML = "<p class='num'>" + num3 + "</p>";
+            }
+
+        }
+
+
+
+    </script>
+</head>
+
+<body>
+    <h1>Mayor número</h1>
+    <div class="tabla">
+
+        <input type="text" id="i1"> <span>NUM 1</span></input>
+
+        <input type="text" id="i2"> <span>NUM 2</span></input>
+
+        <input type="text" id="i3"> <span>NUM 3</span></input>
+
+    </div class="tabla">
+    <div id="btn">
+        <button id="boton" class="boton" name="Aceptar" onclick="ejercicio3()">Aceptar</button>
+    </div>
+    <div class="contSolucion">
+        <p id="infoSol"></p>
+        <div id="solucion"></div>
+    </div>
+
+</body>
+
+</html>

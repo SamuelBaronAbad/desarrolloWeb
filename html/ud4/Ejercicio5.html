@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 05</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <script type="text/javascript">
+
+        function ejercicio05(){
+
+            //Derecta si el objeto pasado por parametro contiene una funcion
+        Object.prototype.implementa = function (nombre) {
+            return this[nombre] instanceof Function;
+            
+        }
+
+        var objeto1 = {
+            muestraMensaje: function () {
+                alert("hola mundo");
+            }
+        };
+        var objeto2 = {
+            a: 0,
+            b: 0,
+            suma: function () {
+                return this.a + this.b;
+            }
+        };
+        document.write("<p>")
+            document.write("<i>Ver HTML</i><br><br>")
+        document.write("¿El <b>\'objeto1\'</b> contiene la función muestraMensaje()?: <b>"+objeto1.implementa("muestraMensaje")+"</b><br>");
+        document.write("¿El <b>\'objeto1\'</b> contiene la función suma()?: <b>"+objeto1.implementa("suma")+"</b><br>");
+        document.write("¿El <b>\'objeto2\'</b> contiene la función muestraMensaje()?: <b>"+objeto2.implementa("muestraMensaje")+"</b><br>");
+        document.write("¿El <b>\'objeto2\'</b>' contiene la función suma()?: <b>"+objeto2.implementa("suma")+"</b><br>");
+        document.write("¿El <b>\'objeto1\'</b> contiene la función implementa()?: <b>"+objeto1.implementa("implementa")+"</b><br>");
+        document.write("</p>")
+        }
+    </script>
+</head>
+<body>
+    <h1>¿Contiene una función o no?</h1>
+</body>
+<script>
+    ejercicio05();
+</script>
+</html>

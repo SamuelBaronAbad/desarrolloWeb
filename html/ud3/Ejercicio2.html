@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<head>
+    <title>Ejercicio 02</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <style>
+        span {
+            color: rgb(167, 3, 3);
+            font-weight: 2px;
+            font-size: 12px;
+            display: block;
+            width: 100px;
+            top: 13px;
+            position: relative;
+        }
+
+
+        form {
+            background: #e6e6e6;
+            height: 290px;
+            padding: 23px 34px 23px 34px;
+            border-radius: 5px;
+            box-shadow: 0px 8px 16px gray;
+            width: 80%;
+
+        }
+
+
+        input[type=text],
+        select {
+            width: 194px;
+            margin: 11px;
+            padding: 10px;
+            border: 1px solid rgb(168, 168, 168);
+            border-radius: 5px;
+            background: rgb(253, 253, 253);
+        }
+
+        select {
+            width: 37%;
+            background-color: whitesmoke;
+            color: purple;
+        }
+
+
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border: 2px solid purple;
+        }
+
+        label {
+            font-size: 16px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            width: 34%;
+            margin: 22px;
+            color: rgb(97, 97, 97);
+        }
+
+
+
+        .row {
+            content: "";
+            display: flex;
+
+        }
+
+        .centrado {
+            width: auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        #select select {
+
+            appearance: none;
+            background-image: url(../../img/cruz.png),
+                linear-gradient(to bottom, #ffffff 0%, #f7f7f7 100%);
+            background-repeat: no-repeat, repeat;
+            background-position: right .7em top 50%, 0 0;
+            background-size: .65em auto, 100%;
+        }
+    </style>
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).keypress(function (e) {
+            if (e.which == 13 && !e.shiftKey) {
+                $('.boton').click();
+            }
+        });
+
+        function validacion() {
+            var nombre = document.getElementById("nombre").value;
+            if (nombre.length == 0 || /^\s+$/.test(nombre) || /^\s+[a-zA-Z]/.test(nombre)) {
+                alert("Hay que escribir un nombre");
+                nombre.focus();
+                return false;
+            }
+
+            var edad = document.formulario.edad.value;
+            if (edad.length == 0) {
+                alert("Hay que escribir una edad");
+                edad.focus();
+                return false;
+            } else if (isNaN(edad)) {
+                alert("La edad tiene que ser un numero");
+                edad.focus();
+                return false;
+            } else if (edad < 18) {
+                alert("La edad tiene que ser igual o mayor de 18");
+                edad.focus();
+                return false;
+            }
+
+            var interes = document.getElementById("interes");
+
+            if (interes.selectedIndex == 0) {
+                alert("Has de elegir un interes")
+                interes.focus();
+                return false;
+
+            }
+
+            alert("El formulario se ha enviado correctamente");
+            document.formulario.onsubmit();
+
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Formulario y Validaciones</h1>
+    <div class="centrado">
+        <form name="formulario" action="">
+            <div class="row">
+                <label for="nombre">Nombre y Apellidos </label>
+                <input type="text" id="nombre" name="nombre" />
+                <span id="nombre"></span>
+            </div>
+            <div class="row">
+                <label for="edad">Edad </label>
+                <input type="text" name="edad" />
+                <span id="edad"></span>
+            </div>
+            <div id="select" class="row">
+                <label for="interes">Intereses</label>
+                <select id="interes" name="interes">
+                    <option value="Elegir">
+                        Elegir
+                    </option>
+                    <option value="Comercial">
+                        Contacto comercial
+                    </option>
+                    <option value="Clientes">
+                        Atención al cliente
+                    </option>
+                    <option value="Proveedores">
+                        Contacto de proveedores
+                    </option>
+                </select>
+                <span id="interes"></span>
+            </div>
+            <div class="row">
+                <label for="CODIGO">Codigo Postal</label>
+                <input type="text" name="CODIGO" size="10" />
+                <span id="codigo"></span>
+            </div>
+
+            <div class="centrado">
+                <input class="boton" type="button" name="ENVIAR" value="Enviar Datos" onclick="validacion()" />
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

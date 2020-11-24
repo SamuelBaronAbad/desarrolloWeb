@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 03</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <link rel="stylesheet" href="../../css/ScrollBar.css">
+    <style>
+        .contPpal {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .input {
+            align-items: center;
+            margin-top: 25px;
+        }
+
+        span {
+            display: block;
+            height: 150px;
+            width: 125%;
+            padding-top: 26px;
+            right: 20px;
+            position: relative;
+            background-size: 69% 72%;
+            background-repeat: no-repeat;  
+            background-position: 32px 2px;          
+        }
+
+        span:hover {
+          
+            animation-name: span;
+            animation-duration: 1s;
+            animation-timing-function: ease-in-out;
+            animation-fill-mode: forwards;
+            color: transparent;
+         
+        }
+
+        @keyframes span {
+            0%{ 
+                background-image: url(../../img/cruz_blanca.png);
+                opacity: 0%;}
+            100% {
+                background-image: url(../../img/cruz_blanca.png);
+                opacity: 100%;}
+            
+        }
+
+        .boton {
+            height: 140px;
+            max-width: 75%;
+            font-size: 30px;
+        }
+
+        .lista {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 25px;
+            line-height: 44px;
+        }
+
+        .lista>ul>li {
+            list-style-type: upper-roman;
+        }
+    </style>
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+
+
+        function add() {
+            var lista = document.getElementById("lista").getElementsByTagName("li");
+            contador = lista.length + 1;
+            var newNode = document.createElement("li");
+            var newText = document.createTextNode("elemento de la lista" + contador);
+            newNode.appendChild(newText);
+            document.getElementById("lista").appendChild(newNode);
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>Añadir elementos a una lista</h1>
+    <div class="contPpal">
+        <div class="lista">
+            <ul id="lista">
+                <li>elemento de la lista1</li>
+                <li>elemento de la lista2</li>
+                <li>elemento de la lista3</li>
+                <li>elemento de la lista4</li>
+                <li>elemento de la lista5</li>
+            </ul>
+        </div>
+        <div class="input">
+            <button class="boton" onclick="add();"><span>Añadir elemento</span></button>
+        </div>
+    </div>
+</body>
+
+</html>

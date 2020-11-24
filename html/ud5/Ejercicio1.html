@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css"">
+ 
+    <style>
+    
+        h1{
+            margin: 11px;
+        }
+        video {
+            outline: none;
+            border-radius: 11px;
+            border: 4px solid purple;
+            background: black;
+        }
+     
+        article {
+          
+            display: flex;
+            justify-content: center;
+          
+        }
+        ul {
+            display: flex;
+    justify-content: center;
+        }
+        li{
+            font-size: 18px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            margin-right: 30px;
+    list-style: none;
+        }
+       
+    </style>
+  
+</head>
+
+<body>
+    <header>
+        <h1>Videos</h1>
+    </header>
+    <nav>
+    <ul>
+        <li>Video 1</li>
+        <li>Video 2</li>
+        <li>Video 3</li>
+    </ul>
+    </nav>
+    <aside>
+
+    </aside>
+    <section>
+ 
+        <article>
+          
+    <video width=" 640" height="360" poster="../../img/samu_roqueta.jpg" controls>
+    <!-- Aqui indicamos que intente reproducir el video con el primer formato, si el navegador no puede reproducirlo
+            saltará a la siguiente opción, así hasta la última-->
+    <source src="../../videos/Heroe.mp4" type="video/mp4" />
+    <source src="../../videos/Heroe.webm" type="video/webm" />
+    <source src="../../videos/Heroe.ogg" type="video/ogg" />
+    Este navegador no puede reproducir video
+    </video>
+
+    </article>
+    </section>
+    <footer>
+
+    </footer>
+
+    </body>
+
+</html>

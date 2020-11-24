@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 03</title>
+    <link rel="stylesheet" href="../../css/ejercicios_base.css">
+    <style>
+        h3 {
+            text-align: center;
+        }
+
+        article {
+            display: flex;
+            justify-content: center;
+        }
+
+        nav {
+
+            display: flex;
+            flex-direction: column;
+            line-height: 7px;
+            width: 25%;
+        }
+
+        .boton {
+            margin-top: 7px;
+            margin-left: 18px;
+            top: -17px;
+            background-color: rgb(172, 76, 172);
+        }
+        
+
+        .nav {
+            display: flex;
+
+        }
+
+        section {
+            width: 80%;
+            margin-top: 35px;
+        }
+
+        canvas {
+            background: whitesmoke;
+            border-radius: 14px;
+            /* border: 1px solid #000000; */
+            box-shadow: 0px 6px 20px #383838;
+        }
+    </style>
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script>
+
+        //Funcion para comprobar si el navegador es compatible
+        var canvas;
+        var quad;
+
+        function devolverLienzo(x) {
+            canvas = document.getElementById(x);
+            if (canvas && canvas.getContext) {
+                var lienzo = canvas.getContext("2d");
+                return lienzo;
+            } else {
+                return false
+            }
+        }
+        function limpiar() {
+            if (canvas != null) {
+                canvas.width = canvas.width;
+            }
+        }
+
+
+        function linea() {
+            clearInterval(quad);
+            limpiar();
+            var lienzo = devolverLienzo("ppal");
+            //Linea
+            if (lienzo) {
+                lienzo.beginPath();
+                lienzo.strokeStyle = "rgb(0,0,255)";
+                lienzo.lineWidth = 7;
+                lienzo.moveTo(0, 0);
+                lienzo.lineTo(40, 70);
+                lienzo.stroke();
+                //Puntos en los extremos
+                lienzo.beginPath();
+                lienzo.strokeStyle = "rgb(0,255,0)";
+                lienzo.lineCap = "butt";
+                lienzo.moveTo(40, 70);
+                lienzo.lineTo(40, 120);
+                lienzo.stroke();
+                //Redondear final linea
+                lienzo.beginPath();
+                lienzo.strokeStyle = "rgb(255,0,0)";
+                lienzo.lineCap = "round";
+                lienzo.moveTo(40, 120);
+                lienzo.lineTo(70, 120);
+                lienzo.stroke();
+                //En las uniones pinta una punta
+                lienzo.beginPath();
+                lienzo.strokeStyle = "rgb(0,255,0)";
+                lienzo.lineJoin = "miter";
+                lienzo.moveTo(70, 120);
+                lienzo.lineTo(70, 160);
+                lienzo.stroke();
+                //En las uniones pinta un cuadrado
+                lienzo.beginPath();
+                lienzo.strokeStyle = "rgb(0,0,255)";
+                lienzo.lineJoin = "bevel";
+                lienzo.moveTo(70, 160);
+                lienzo.lineTo(120, 120);
+                lienzo.stroke();
+            }
+        }
+
+        function rectangulo() {
+            clearInterval(quad);
+            limpiar();
+            //Rectangulo
+            lienzo = devolverLienzo("ppal")
+            if (lienzo) {
+                //Vacio
+                /*
+                lienzo.strokeStyle = "rgb(255,0,0)";
+                lienzo.strokeRect(10,50,200,100);
+                */
+                //Relleno
+                lienzo.fillStyle = "rgb(0,0,255)";
+                lienzo.fillRect(0, 0, 200, 200);
+                lienzo.clearRect(10, 10, 20, 20);
+                lienzo.clearRect(30, 30, 50, 50);
+            }
+        }
+
+        //RELLENOS y ARCOS
+        function formas() {
+            clearInterval(quad);
+            limpiar();
+            lienzo = devolverLienzo("ppal");
+            if (lienzo) {
+                //Triangulo relleno
+                lienzo.beginPath();
+
+                //AGREGAMOS OPACIDAD
+                lienzo.fillStyle = "rgb(255,0,0,0.3)";
+                //AGREGAMOS SOMBRA
+                lienzo.shadowOffsetX = -10;
+                lienzo.shadowOffsetY = 5;
+                lienzo.shadowBlur = 10;
+                lienzo.shadowColor = "rgba(0, 0, 255)";
+
+                lienzo.lineWidth = 5;
+                lienzo.strokeStyle = "rgb(0,0,0)";
+                lienzo.moveTo(30, 150);
+                lienzo.lineTo(80, 30);
+                lienzo.lineTo(130, 150);
+                lienzo.lineTo(30, 150);
+                lienzo.fill();
+                lienzo.stroke();
+
+                //ARCO
+                lienzo.shadowOffsetX = 5;
+                //Sentido Horario
+                lienzo.beginPath();
+                lienzo.strokeStyle = "rgb(0,0,0)";
+                lienzo.arc(220, 70, 50, 0, Math.PI, true);
+                lienzo.stroke();
+                //Sentido AntiHorario
+                lienzo.beginPath();
+                lienzo.strokeStyle = "rgb(255,0,0)";
+                lienzo.arc(220, 70, 50, 0, Math.PI, false);
+                lienzo.stroke();
+                //Relleno de amarillo
+                lienzo.beginPath();
+                lienzo.fillStyle = "rgb(255,255,0)";
+                lienzo.strokeStyle = "rgb(255,0,0)";
+                lienzo.arc(220, 180, 50, 0, Math.PI * 2, true);
+                lienzo.fill();
+
+            }
+        }
+
+        function bezier1() {
+            clearInterval(quad);
+            limpiar();
+            //BEZIER
+            lienzo = devolverLienzo("ppal");
+            if (lienzo) {
+                lienzo.beginPath();
+                lienzo.fillStyle = "rgb(0,255,255)";
+                lienzo.lineWidth = 3;
+                lienzo.strokeStyle = "rgb(0,0,0)";
+                lienzo.moveTo(50, 150);
+                lienzo.bezierCurveTo(100, 50, 200, 250, 290, 150);
+                lienzo.stroke();
+            }
+        }
+        var fila = 0;
+        function bezier2() {
+            limpiar();
+            lienzo = devolverLienzo("ppal");
+            if (lienzo) {
+                lienzo.clearRect(0, 0, 300, 240);
+                lienzo.lineWidth = 3;
+                lienzo.strokeStyle = "rgb(255,0,0)";
+                lienzo.beginPath();
+                lienzo.moveTo(50, 150);
+                lienzo.quadraticCurveTo(150, fila, 300, 80);
+                lienzo.stroke();
+                fila++;
+                if (fila > 300) {
+                    fila = 0;
+                }
+            }
+        }
+
+        //QUADRATIC BEZIER
+        function quadratic() {
+            limpiar();
+            quad = setInterval(bezier2, 10);
+
+        }
+
+        function texto() {
+            clearInterval(quad);
+            limpiar();
+            //DIBUJAR Y RELLENAR TEXTO
+            lienzo = devolverLienzo("ppal");
+            if (lienzo) {
+
+                lienzo.fillStyle = "rgb(255,0,255)";
+                lienzo.font = "bold 25px Verdana";
+                lienzo.fillText("SAMUEL", 150, 50);
+
+                lienzo.textAlign = "center";
+                lienzo.fillText("SAMUEL", 150, 100);
+
+                lienzo.textAlign = "right";
+                lienzo.fillText("SAMUEL", 150, 150);
+
+                lienzo.textAlign = "center";
+                var anchoPx = lienzo.measureText("SEAS");
+                lienzo.fillText(anchoPx.width, 150, 190);
+
+                lienzo.strokeStyle = "rgb(0,0,0)";
+                lienzo.strokeText("Fin", 150, 220);
+            }
+        }
+
+        function gradientes() {
+            clearInterval(quad);
+            limpiar();
+            //GRADIENTES 
+            lienzo = devolverLienzo("ppal");
+            if (lienzo) {
+
+                //LINEALES
+                var gradiente1 = lienzo.createLinearGradient(0, 0, 100, 0);
+                gradiente1.addColorStop(0, "rgb(255, 0, 0)");
+                gradiente1.addColorStop(1, "rgb(0, 0, 0)");
+                lienzo.fillStyle = gradiente1;
+                lienzo.fillRect(0, 0, 100, 100);
+
+                var gradiente2 = lienzo.createLinearGradient(100, 200, 0, 120);
+                gradiente2.addColorStop(0, "rgb(255, 0, 0)");
+                gradiente2.addColorStop(1, "rgb(0, 0, 0)");
+                lienzo.fillStyle = gradiente2;
+                lienzo.fillRect(0, 120, 100, 100);
+
+                var gradiente3 = lienzo.createLinearGradient(120, 0, 300, 0);
+                gradiente3.addColorStop(0, "rgb(0, 0, 0)");
+                gradiente3.addColorStop(1, "rgb(255, 0, 0)");
+                lienzo.fillStyle = gradiente3;
+                lienzo.fillRect(120, 0, 100, 100);
+
+                var gradiente4 = lienzo.createLinearGradient(500, 100, 120, 280);
+                gradiente4.addColorStop(0, "rgb(255, 0, 0)");
+                gradiente4.addColorStop(0.5, "rgb(0, 255, 0)");
+                gradiente4.addColorStop(1, "rgb(0, 0, 0)");
+                lienzo.fillStyle = gradiente4;
+                lienzo.fillRect(120, 120, 100, 100);
+
+                //RADIALES
+                var gradiente5 = lienzo.createRadialGradient(200, 200, 0, 200, 200, 200);
+                gradiente5.addColorStop(0, "red");
+                gradiente5.addColorStop(1, "rgb(0,0,255)");
+                lienzo.fillStyle = gradiente5;
+                lienzo.arc(290, 120, 70, 0, Math.PI * 2, true);
+                lienzo.fill()
+            }
+        }
+
+        var lienzo1;
+        function rellenoP() {
+            clearInterval(quad);
+            limpiar();
+            //RELLENO CON PATRONES
+            lienzo1 = devolverLienzo("ppal");
+            if (lienzo1) {
+                lienzo1.strokeStyle = "rgb(0,0,255)";
+                lienzo1.beginPath();
+                lienzo1.moveTo(25, 0);
+                lienzo1.lineTo(25, 50);
+                lienzo1.stroke();
+
+                lienzo1.beginPath();
+                lienzo1.moveTo(0, 25);
+                lienzo1.lineTo(50, 25);
+                lienzo1.stroke();
+            }
+        }
+
+        function rellenoPatron() {
+            clearInterval(quad);
+            limpiar();
+            var lienzo2 = devolverLienzo("ppal");
+            if (lienzo2) {
+                var patron = lienzo2.createPattern(lienzo1.canvas, "repeat");
+                lienzo2.fillStyle = patron;
+                lienzo2.fillRect(0, 0, 300, 300);
+            }
+        }
+
+
+
+
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>CANVAS</h1>
+    </header>
+    <div class="nav">
+        <nav>
+            <button class="boton" type="button" id="btn1" onclick="linea()">Linea</button>
+            <button class=" boton" type="button" id="btn2" onclick="rectangulo()">Rectangulo</button>
+            <button class=" boton" type="button" id="btn3" onclick="formas()">Formas</button>
+            <button class="boton" type="button" id="btn4" onclick="bezier1()">Bezier1</button>
+            <button class="boton" type="button" id="btn5" onclick="quadratic()">Quadratic</button>
+            <button class="boton" type="button" id="btn6" onclick="texto()">Texto</button>
+            <button class="boton" type="button" id="btn7" onclick="gradientes()">Gradientes</button>
+            <button class="boton" type="button" id="btn8" onclick="rellenoP()">Patron</button>
+            <button class="boton" type="button" id="btn9" onclick="rellenoPatron()">Relleno Patron</button>
+        </nav>
+
+        <section>
+            <article>
+                <canvas id="ppal" width="360" height="240" style="border:1px solid #000000"></canvas>
+            </article>
+        </section>
+    </div>
+</body>
+
+</html>
